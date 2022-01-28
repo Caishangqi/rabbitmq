@@ -25,10 +25,10 @@ public class Producer {
 
         /*
         参数：
-          第2个参数： 是否是持久队列
-          第3个参数： 是否是排他队列、独占队列
-          第4个参数： 是否自动删除
-          第5个参数： 队列的其他属性
+          第2个参数： 是否是持久队列 (存到磁盘里)
+          第3个参数： 是否是排他队列、独占队列 (一个消费者占用其他是否可以接收)
+          第4个参数： 是否自动删除 (一个队列多个消费者共享，并且记录使用的消费者，如果没有消费者是否自动删除)
+          第5个参数： 队列的其他属性 (Map键值对属性)
          */
 
         c.queueDeclare("helloword", false, false, false, null);
@@ -36,7 +36,7 @@ public class Producer {
 
         // 向 helloworld 队列发送消息
         /*
-        "" - 默认的交换机
+        "" - 默认的交换机 AMPQ
         null - 消息的其他参数属性
          */
         c.basicPublish("", "helloworld", null, "Hello world!".getBytes());
@@ -44,5 +44,5 @@ public class Producer {
         c.close(); //通道断开
         con.close(); //链接断开
     }
-    
+
 }
